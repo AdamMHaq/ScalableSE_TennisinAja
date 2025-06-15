@@ -1,4 +1,5 @@
 from motor.motor_asyncio import AsyncIOMotorClient
+<<<<<<< HEAD
 from pymongo.errors import ConfigurationError, ServerSelectionTimeoutError
 import logging
 
@@ -18,3 +19,18 @@ async def connect_to_mongo():
 
 async def get_database():
     return await connect_to_mongo()
+=======
+from pymongo.collection import Collection
+import os
+
+# MongoDB connection URI (adjust if needed)
+MONGODB_URL = os.getenv("MONGODB_URL", "mongodb://localhost:27017")
+DB_NAME = "tennisinaja"
+
+# Initialize MongoDB client
+client = AsyncIOMotorClient(MONGODB_URL)
+db = client[DB_NAME]
+
+# Reference to your users collection
+user_collection: Collection = db["users"]
+>>>>>>> 28f03f80133b0d0ad90b22b8bd53cc17c66e20f4

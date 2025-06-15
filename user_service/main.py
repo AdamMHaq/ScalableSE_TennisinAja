@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+<<<<<<< HEAD
 from fastapi.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
 from routers import users
@@ -6,12 +7,16 @@ import logging
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+=======
+from routers import users
+>>>>>>> 28f03f80133b0d0ad90b22b8bd53cc17c66e20f4
 
 app = FastAPI(
     title="TennisinAja - User Service",
     version="1.0.0"
 )
 
+<<<<<<< HEAD
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -41,3 +46,12 @@ app.include_router(users.router, prefix="/users", tags=["Users"])
 @app.get("/")
 async def root():
     return {"message": "Welcome to TennisinAja User Service"}
+=======
+# Register the user-related routes
+app.include_router(users.router, prefix="/users", tags=["Users"])
+
+# Root route for testing
+@app.get("/")
+def root():
+    return {"message": "Welcome to TennisinAja User Service"}
+>>>>>>> 28f03f80133b0d0ad90b22b8bd53cc17c66e20f4

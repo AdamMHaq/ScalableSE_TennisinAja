@@ -1,6 +1,7 @@
 let users = [];
 let courts = [];
 let bookings = [];
+<<<<<<< HEAD
 const DEFAULT_USER_ID = "nafalza";
 
 // Set minimum date to today
@@ -76,10 +77,87 @@ document.getElementById('booking-form').addEventListener('submit', async functio
   button.disabled = true;
   button.textContent = 'Booking...';
 
+=======
+let signedInUser = null;
+
+async function fetchAndShow(endpoint, setter, renderFn, elId) {
+  const el = document.getElementById(elId);
+  try {
+    const res = await fetch(endpoint);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    setter(data);
+    el.innerHTML = renderFn(data);
+  } catch (e) {
+    el.innerHTML = `<div class="error">Failed to load: ${e.message}</div>`;
+  }
+}
+
+// Fetch users and render user list
+function setUsers(data) { users = data; }
+function renderUsers(data) {
+  return `<ul>${data.map(u => `<li><b>${u.name}</b> (${u.email})</li>`).join('')}</ul>`;
+}
+fetchAndShow('http://localhost:8000/users/', setUsers, renderUsers, 'users-list');
+
+// Fetch courts and render court list and booking select
+function setCourts(data) { courts = data; renderCourtSelect(); }
+function renderCourts(data) {
+  return `<ul>${data.map(c => `<li><b>${c.name}</b> - ${c.location}</li>`).join('')}</ul>`;
+}
+fetchAndShow('http://localhost:8001/courts/', setCourts, renderCourts, 'courts-list');
+
+// Fetch bookings and render with user/court names
+function setBookings(data) { bookings = data; }
+function renderBookings(data) {
+  return `<ul>${data.map(b => {
+    const user = users.find(u => u._id === b.user_id) || { name: b.user_id };
+    const court = courts.find(c => c._id === b.court_id) || { name: b.court_id };
+    return `<li><b>${user.name}</b> booked <b>${court.name}</b> on <b>${b.date}</b></li>`;
+  }).join('')}</ul>`;
+}
+function refreshBookings() {
+  fetchAndShow('http://localhost:8002/bookings/', setBookings, renderBookings, 'bookings-list');
+}
+refreshBookings();
+
+// Render court select options for booking form
+function renderCourtSelect() {
+  const select = document.getElementById('booking-court');
+  select.innerHTML = courts.map(c => `<option value="${c._id}">${c.name} (${c.location})</option>`).join('');
+}
+
+// Sign In logic
+document.getElementById('signin-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const email = document.getElementById('signin-email').value;
+  const user = users.find(u => u.email === email);
+  const status = document.getElementById('signin-status');
+  if (user) {
+    signedInUser = user;
+    status.innerHTML = `<div class="signed-in">Signed in as ${user.name}</div>`;
+  } else {
+    signedInUser = null;
+    status.innerHTML = `<div class="error">User not found</div>`;
+  }
+});
+
+// Booking form logic
+document.getElementById('booking-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const status = document.getElementById('booking-status');
+  if (!signedInUser) {
+    status.innerHTML = `<div class="error">Please sign in first.</div>`;
+    return;
+  }
+  const courtId = document.getElementById('booking-court').value;
+  const date = document.getElementById('booking-date').value;
+>>>>>>> 28f03f80133b0d0ad90b22b8bd53cc17c66e20f4
   try {
     const res = await fetch('http://localhost:8002/bookings/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
+<<<<<<< HEAD
       body: JSON.stringify({
         user_id: DEFAULT_USER_ID,
         court_id: courtId,
@@ -154,3 +232,14 @@ async function refreshData() {
 
 // Initial load
 refreshData();
+=======
+      body: JSON.stringify({ user_id: signedInUser._id, court_id: courtId, date })
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    status.innerHTML = `<div class="signed-in">Booking successful!</div>`;
+    refreshBookings();
+  } catch (e) {
+    status.innerHTML = `<div class="error">Booking failed: ${e.message}</div>`;
+  }
+});
+>>>>>>> 28f03f80133b0d0ad90b22b8bd53cc17c66e20f4

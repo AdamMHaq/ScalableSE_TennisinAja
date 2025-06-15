@@ -2,17 +2,24 @@ version: "3.9"
 services:
   mongo:
     image: mongo:6
+<<<<<<< HEAD
     healthcheck:
       test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
       interval: 10s
       timeout: 5s
       retries: 5
+=======
+    restart: always
+>>>>>>> 28f03f80133b0d0ad90b22b8bd53cc17c66e20f4
     ports:
       - "27017:27017"
     volumes:
       - mongo_data:/data/db
+<<<<<<< HEAD
     networks:
       - app_network
+=======
+>>>>>>> 28f03f80133b0d0ad90b22b8bd53cc17c66e20f4
 
   user_service:
     build: ./user_service
@@ -21,10 +28,14 @@ services:
     environment:
       - MONGODB_URL=mongodb://mongo:27017
     depends_on:
+<<<<<<< HEAD
       mongo:
         condition: service_healthy
     networks:
       - app_network
+=======
+      - mongo
+>>>>>>> 28f03f80133b0d0ad90b22b8bd53cc17c66e20f4
 
   court_service:
     build: ./court_service
@@ -33,10 +44,14 @@ services:
     environment:
       - MONGODB_URL=mongodb://mongo:27017
     depends_on:
+<<<<<<< HEAD
       mongo:
         condition: service_healthy
     networks:
       - app_network
+=======
+      - mongo
+>>>>>>> 28f03f80133b0d0ad90b22b8bd53cc17c66e20f4
 
   booking_service:
     build: ./booking_service
@@ -45,16 +60,21 @@ services:
     environment:
       - MONGODB_URL=mongodb://mongo:27017
     depends_on:
+<<<<<<< HEAD
       mongo:
         condition: service_healthy
     networks:
       - app_network
+=======
+      - mongo
+>>>>>>> 28f03f80133b0d0ad90b22b8bd53cc17c66e20f4
 
   frontend:
     build: ./frontend
     ports:
       - "3000:3000"
     depends_on:
+<<<<<<< HEAD
       - booking_service
     networks:
       - app_network
@@ -65,3 +85,11 @@ volumes:
 networks:
   app_network:
     driver: bridge
+=======
+      - user_service
+      - court_service
+      - booking_service
+
+volumes:
+  mongo_data:
+>>>>>>> 28f03f80133b0d0ad90b22b8bd53cc17c66e20f4

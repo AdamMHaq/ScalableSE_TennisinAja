@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+<<<<<<< HEAD
 from fastapi.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
 from routers import bookings
@@ -6,12 +7,16 @@ import logging
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+=======
+from routers import bookings
+>>>>>>> 28f03f80133b0d0ad90b22b8bd53cc17c66e20f4
 
 app = FastAPI(
     title="TennisinAja - Booking Service",
     version="1.0.0"
 )
 
+<<<<<<< HEAD
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -40,4 +45,10 @@ app.include_router(bookings.router, prefix="/bookings", tags=["Bookings"])
 
 @app.get("/")
 async def root():
+=======
+app.include_router(bookings.router, prefix="/bookings", tags=["Bookings"])
+
+@app.get("/")
+def root():
+>>>>>>> 28f03f80133b0d0ad90b22b8bd53cc17c66e20f4
     return {"message": "Welcome to TennisinAja Booking Service"}

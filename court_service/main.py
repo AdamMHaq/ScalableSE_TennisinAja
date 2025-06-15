@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+<<<<<<< HEAD
 from fastapi.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
 from routers import courts
@@ -6,12 +7,16 @@ import logging
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+=======
+from routers import courts
+>>>>>>> 28f03f80133b0d0ad90b22b8bd53cc17c66e20f4
 
 app = FastAPI(
     title="TennisinAja - Court Service",
     version="1.0.0"
 )
 
+<<<<<<< HEAD
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -40,4 +45,10 @@ app.include_router(courts.router, prefix="/courts", tags=["Courts"])
 
 @app.get("/")
 async def root():
+=======
+app.include_router(courts.router, prefix="/courts", tags=["Courts"])
+
+@app.get("/")
+def root():
+>>>>>>> 28f03f80133b0d0ad90b22b8bd53cc17c66e20f4
     return {"message": "Welcome to TennisinAja Court Service"}
