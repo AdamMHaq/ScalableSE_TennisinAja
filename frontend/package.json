@@ -1,0 +1,9 @@
+{
+  "name": "tennisinaja-frontend",
+  "version": "1.0.0",
+  "description": "Frontend for TennisinAja",
+  "scripts": {
+    "start": "serve public"
+  },
+  "dependencies": {}
+}
