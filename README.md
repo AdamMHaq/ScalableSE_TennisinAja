@@ -33,29 +33,44 @@
 ## 🗂️ Project Structure
 
 ```
-ScalableSE_TennisinAja-feature-frontend-ui/
+TennisinAja/
 ├── docker-compose.yml
 ├── README.md
 ├── user_service/         # User management microservice
 ├── court_service/        # Court management microservice
 ├── booking_service/      # Booking management microservice
 ├── frontend/             # Static frontend (HTML/JS/CSS)
-│   ├── public/
-│   └── src/
-└── ...
+    ├── public/
+    └── src/
 ```
 
 ---
 
 ## 🎯 Key Features
 
-- **JWT Authentication:** Secure login and role-based access (admin/player).
-- **Admin Panel:** Admins can add, edit, and remove courts.
-- **Booking System:** Players can view available courts and make/cancel bookings.
-- **Modern Web UI:** Responsive interface for both players and admins.
-- **Microservices:** Each service is independently deployable and scalable.
-- **Dockerized:** All components run in containers for consistency and easy setup.
-- **Mock Data:** Demo users, courts, and bookings are auto-inserted for quick testing.
+### ** 🔐 Authentication & Authorization System **
+- JWT-based Authentication: Secure token-based login with role-based access control
+- User Registration & Management: Complete user lifecycle with email validation
+- Role-based Security: Admin vs Player permissions with protected endpoints
+- Session Persistence: Auto-login with token storage and validation
+### ** 🏟️ Court Management System **
+- Public Court Discovery: Browse available courts without authentication
+- Advanced Filtering: Search by surface type (hard/clay/grass), indoor/outdoor, price range
+- Admin Court Creation: Full CRUD operations for court administrators
+- Rich Court Data: Comprehensive court info including pricing, contact, Google Maps integration
+- Real-time Updates: Instant court availability across all users
+### ** 📅 Booking Management System **
+- Smart Booking Engine: Prevents double-booking with time slot validation
+- Multi-duration Support: 1-3 hour booking slots with flexible scheduling
+- Booking History: Complete booking lifecycle tracking (pending → confirmed → cancelled)
+- Payment Status Tracking: Integrated payment status management (unpaid → paid → refunded)
+- Confirmation Codes: Unique booking identifiers for verification
+### ** 🛡️ Security & Reliability **
+- Password Encryption: Bcrypt hashing for secure password storage
+- CORS Configuration: Proper cross-origin resource sharing setup
+- Input Validation: Comprehensive request validation with Pydantic models
+- Error Handling: Graceful error responses with proper HTTP status codes
+- Token Expiration: Automatic JWT token lifecycle management
 
 ---
 
@@ -149,17 +164,6 @@ uvicorn main:app --reload --port 8000
 - Use the "Add Court" form to create a new court.
 - The court will appear instantly for all users.
 
-### Resetting Mock Data
-
-If you want to reload mock data:
-1. Connect to the relevant MongoDB instance (e.g., for courts: `mongo --port 27018`).
-2. Run:  
-   ```
-   use tennisinaja_courts
-   db.courts.deleteMany({})
-   ```
-3. Restart the relevant service (`docker-compose restart court_service`).
-
 ---
 
 ## 🐳 Docker Compose Services
@@ -180,7 +184,6 @@ If you want to reload mock data:
 - **Court Management:** Admins can add, edit, and delete courts.
 - **Booking:** Players can view available courts and make/cancel bookings.
 - **Responsive Design:** Works on desktop and mobile.
-- **Demo Data:** Preloaded users, courts, and bookings for instant testing.
 
 ---
 
@@ -217,14 +220,6 @@ If you want to reload mock data:
 - Calendar view for bookings
 - Admin analytics dashboard
 - Mobile app
-
----
-
-## 📚 References
-
-- [FastAPI Documentation](https://fastapi.tiangolo.com/)
-- [MongoDB Documentation](https://docs.mongodb.com/)
-- [Docker Compose Docs](https://docs.docker.com/compose/)
 
 ---
 
