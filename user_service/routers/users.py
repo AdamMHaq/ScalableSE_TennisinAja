@@ -1,40 +1,9 @@
-<<<<<<< HEAD
-from fastapi import APIRouter, HTTPException, Depends
-from motor.motor_asyncio import AsyncIOMotorCollection
-from database import get_database
-
-router = APIRouter()
-
-async def get_collection():
-    db = await get_database()
-    return db.users
-
-@router.get("/")
-async def get_users(collection: AsyncIOMotorCollection = Depends(get_collection)):
-    try:
-        users = await collection.find().to_list(1000)
-        return users
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-@router.get("/{user_id}")
-async def get_user(user_id: str, collection: AsyncIOMotorCollection = Depends(get_collection)):
-    try:
-        user = await collection.find_one({"_id": user_id})
-        if user is None:
-            raise HTTPException(status_code=404, detail="User not found")
-        return user
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-=======
 from fastapi import APIRouter, HTTPException, Depends, Header
-from models import UserIn, UserOut
+from models import UserIn, UserOut, LoginRequest
 from auth import hash_password, verify_password, create_access_token, decode_access_token
-from database import user_collection  # Note: should be user_collection, not users_collection
+from database import user_collection
 from bson.objectid import ObjectId
 from datetime import datetime
-from jose import JWTError
-from models import LoginRequest
 
 router = APIRouter()
 
@@ -95,7 +64,6 @@ async def get_user_by_id(user_id: str):
 
 @router.put("/{user_id}", response_model=UserOut)
 async def update_user(user_id: str, user_update: UserIn, current_user=Depends(get_current_user)):
-    # Only owner or admin can update
     if user_id != current_user["sub"] and current_user.get("role") != "admin":
         raise HTTPException(status_code=403, detail="Not authorized")
     update_data = user_update.dict()
@@ -112,11 +80,10 @@ async def update_user(user_id: str, user_update: UserIn, current_user=Depends(ge
 
 @router.delete("/{user_id}")
 async def delete_user(user_id: str, current_user=Depends(get_current_user)):
-    # Only owner or admin can delete
     if user_id != current_user["sub"] and current_user.get("role") != "admin":
         raise HTTPException(status_code=403, detail="Not authorized")
     result = await user_collection.delete_one({"_id": ObjectId(user_id)})
     if result.deleted_count == 0:
         raise HTTPException(status_code=404, detail="User not found")
     return {"detail": "User deleted"}
->>>>>>> 28f03f80133b0d0ad90b22b8bd53cc17c66e20f4
+

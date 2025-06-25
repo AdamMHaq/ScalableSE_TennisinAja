@@ -304,28 +304,6 @@
       <h2>Your Bookings</h2>
       <div id="bookings-list" class="booking-list"></div>
     </div>
-
-    <!-- Add Court Form (visible only to admin) -->
-    <div class="card" id="add-court-card" style="display:none;">
-      <h2>Add New Court</h2>
-      <form id="add-court-form" class="auth-form">
-        <input type="text" id="court-name" placeholder="Court Name" required />
-        <input type="text" id="court-phone" placeholder="Contact Phone" required />
-        <input type="text" id="court-address" placeholder="Address" required />
-        <input type="text" id="court-gmaps" placeholder="Google Maps Link" required />
-        <input type="text" id="court-surface" placeholder="Surface (hard/clay/grass)" required />
-        <select id="court-indoor" required>
-          <option value="">Indoor?</option>
-          <option value="true">Yes</option>
-          <option value="false">No</option>
-        </select>
-        <input type="number" id="court-price" placeholder="Price per Hour" required min="0" />
-        <input type="text" id="court-days" placeholder="Available Days (comma separated)" required />
-        <input type="number" id="court-count" placeholder="Number of Courts" required min="1" />
-        <button type="submit">Add Court</button>
-      </form>
-      <div id="add-court-status"></div>
-    </div>
   </div>
 
   <script src="index.js"></script>

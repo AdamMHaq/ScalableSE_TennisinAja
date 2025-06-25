@@ -1,0 +1,132 @@
+from datetime import datetime
+from bson import ObjectId
+
+# Mock court data
+MOCK_COURTS = [
+    {
+        "_id": ObjectId(),
+        "name": "Central Tennis Club",
+        "contact_phone": "+62-812-3456-7890",
+        "address": "Jl. Sudirman No. 123, Jakarta Pusat",
+        "gmaps_link": "https://maps.google.com/?q=Central+Tennis+Club+Jakarta",
+        "surface": "hard",
+        "is_indoor": False,
+        "price_per_hour": 150000,
+        "available_days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+        "available_courts": 4,
+        "created_by": "admin",
+        "createdAt": datetime.now()
+    },
+    {
+        "_id": ObjectId(),
+        "name": "Elite Sports Arena",
+        "contact_phone": "+62-813-9876-5432",
+        "address": "Jl. Kemang Raya No. 45, Jakarta Selatan",
+        "gmaps_link": "https://maps.google.com/?q=Elite+Sports+Arena+Kemang",
+        "surface": "clay",
+        "is_indoor": True,
+        "price_per_hour": 200000,
+        "available_days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+        "available_courts": 6,
+        "created_by": "admin",
+        "createdAt": datetime.now()
+    },
+    {
+        "_id": ObjectId(),
+        "name": "Green Valley Tennis Center",
+        "contact_phone": "+62-814-1234-5678",
+        "address": "Jl. BSD Boulevard No. 88, Tangerang Selatan",
+        "gmaps_link": "https://maps.google.com/?q=Green+Valley+Tennis+BSD",
+        "surface": "grass",
+        "is_indoor": False,
+        "price_per_hour": 180000,
+        "available_days": ["Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+        "available_courts": 3,
+        "created_by": "admin",
+        "createdAt": datetime.now()
+    },
+    {
+        "_id": ObjectId(),
+        "name": "Sunrise Tennis Courts",
+        "contact_phone": "+62-815-2468-1357",
+        "address": "Jl. Pantai Indah Kapuk No. 77, Jakarta Utara",
+        "gmaps_link": "https://maps.google.com/?q=Sunrise+Tennis+PIK",
+        "surface": "hard",
+        "is_indoor": True,
+        "price_per_hour": 175000,
+        "available_days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+        "available_courts": 5,
+        "created_by": "admin",
+        "createdAt": datetime.now()
+    },
+    {
+        "_id": ObjectId(),
+        "name": "Riverside Tennis Club",
+        "contact_phone": "+62-816-3691-2580",
+        "address": "Jl. Cipete Raya No. 156, Jakarta Selatan",
+        "gmaps_link": "https://maps.google.com/?q=Riverside+Tennis+Cipete",
+        "surface": "clay",
+        "is_indoor": False,
+        "price_per_hour": 160000,
+        "available_days": ["Monday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+        "available_courts": 2,
+        "created_by": "admin",
+        "createdAt": datetime.now()
+    },
+    {
+        "_id": ObjectId(),
+        "name": "Metropolitan Tennis Complex",
+        "contact_phone": "+62-817-7531-9642",
+        "address": "Jl. Thamrin No. 234, Jakarta Pusat",
+        "gmaps_link": "https://maps.google.com/?q=Metropolitan+Tennis+Thamrin",
+        "surface": "hard",
+        "is_indoor": True,
+        "price_per_hour": 220000,
+        "available_days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+        "available_courts": 8,
+        "created_by": "admin",
+        "createdAt": datetime.now()
+    },
+    {
+        "_id": ObjectId(),
+        "name": "Garden Tennis Park",
+        "contact_phone": "+62-818-4567-8901",
+        "address": "Jl. Pondok Indah No. 99, Jakarta Selatan",
+        "gmaps_link": "https://maps.google.com/?q=Garden+Tennis+Pondok+Indah",
+        "surface": "grass",
+        "is_indoor": False,
+        "price_per_hour": 190000,
+        "available_days": ["Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+        "available_courts": 4,
+        "created_by": "admin",
+        "createdAt": datetime.now()
+    },
+    {
+        "_id": ObjectId(),
+        "name": "City Sports Tennis Hall",
+        "contact_phone": "+62-819-6543-2109",
+        "address": "Jl. Kuningan Barat No. 67, Jakarta Selatan",
+        "gmaps_link": "https://maps.google.com/?q=City+Sports+Kuningan",
+        "surface": "hard",
+        "is_indoor": True,
+        "price_per_hour": 165000,
+        "available_days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        "available_courts": 3,
+        "created_by": "admin",
+        "createdAt": datetime.now()
+    },
+    {
+        "_id": ObjectId(),
+        "name": "Jakarta International Tennis Center",
+        "contact_phone": "+62-821-1122-3344",
+        "address": "Jl. Asia Afrika No. 8, Jakarta Pusat",
+        "gmaps_link": "https://maps.google.com/?q=Jakarta+International+Tennis+Center",
+        "surface": "hard",
+        "is_indoor": False,
+        "price_per_hour": 210000,
+        "available_days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+        "available_courts": 7,
+        "created_by": "admin",
+        "createdAt": datetime.now()
+    }
+]

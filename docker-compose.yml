@@ -1,95 +1,139 @@
-version: "3.9"
+version: '3.8'
+
 services:
-  mongo:
-    image: mongo:6
-<<<<<<< HEAD
+  # MongoDB for User Service
+  mongo-user:
+    image: mongo:7.0-jammy
+    container_name: tennisinaja-mongo-user
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_user_data:/data/db
+    networks:
+      - user-network
+    environment:
+      - MONGO_INITDB_DATABASE=tennisinaja_users
     healthcheck:
       test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
       interval: 10s
       timeout: 5s
       retries: 5
-=======
+
+  # MongoDB for Court Service  
+  mongo-court:
+    image: mongo:7.0-jammy
+    container_name: tennisinaja-mongo-court
     restart: always
->>>>>>> 28f03f80133b0d0ad90b22b8bd53cc17c66e20f4
     ports:
-      - "27017:27017"
+      - "27018:27017"
     volumes:
-      - mongo_data:/data/db
-<<<<<<< HEAD
+      - mongodb_court_data:/data/db
     networks:
-      - app_network
-=======
->>>>>>> 28f03f80133b0d0ad90b22b8bd53cc17c66e20f4
+      - court-network
+    environment:
+      - MONGO_INITDB_DATABASE=tennisinaja_courts
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # MongoDB for Booking Service
+  mongo-booking:
+    image: mongo:7.0-jammy
+    container_name: tennisinaja-mongo-booking
+    restart: always
+    ports:
+      - "27019:27017"
+    volumes:
+      - mongodb_booking_data:/data/db
+    networks:
+      - booking-network
+    environment:
+      - MONGO_INITDB_DATABASE=tennisinaja_bookings
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   user_service:
-    build: ./user_service
+    build:
+      context: ./user_service
+    container_name: tennisinaja-user
+    environment:
+      - MONGODB_URL=mongodb://mongo-user:27017
+      - SECRET_KEY=supersecretkey
+    depends_on:
+      mongo-user:
+        condition: service_healthy
     ports:
       - "8000:8000"
-    environment:
-      - MONGODB_URL=mongodb://mongo:27017
-    depends_on:
-<<<<<<< HEAD
-      mongo:
-        condition: service_healthy
     networks:
-      - app_network
-=======
-      - mongo
->>>>>>> 28f03f80133b0d0ad90b22b8bd53cc17c66e20f4
+      - user-network
+      - app-network
+    restart: unless-stopped
 
   court_service:
-    build: ./court_service
+    build:
+      context: ./court_service
+    container_name: tennisinaja-court
+    environment:
+      - MONGODB_URL=mongodb://mongo-court:27017
+      - SECRET_KEY=supersecretkey
+    depends_on:
+      mongo-court:
+        condition: service_healthy
     ports:
       - "8001:8001"
-    environment:
-      - MONGODB_URL=mongodb://mongo:27017
-    depends_on:
-<<<<<<< HEAD
-      mongo:
-        condition: service_healthy
     networks:
-      - app_network
-=======
-      - mongo
->>>>>>> 28f03f80133b0d0ad90b22b8bd53cc17c66e20f4
+      - court-network
+      - app-network
+    restart: unless-stopped
 
   booking_service:
-    build: ./booking_service
+    build:
+      context: ./booking_service
+    container_name: tennisinaja-booking
+    environment:
+      - MONGODB_URL=mongodb://mongo-booking:27017
+      - SECRET_KEY=supersecretkey
+    depends_on:
+      mongo-booking:
+        condition: service_healthy
     ports:
       - "8002:8002"
-    environment:
-      - MONGODB_URL=mongodb://mongo:27017
-    depends_on:
-<<<<<<< HEAD
-      mongo:
-        condition: service_healthy
     networks:
-      - app_network
-=======
-      - mongo
->>>>>>> 28f03f80133b0d0ad90b22b8bd53cc17c66e20f4
+      - booking-network
+      - app-network
+    restart: unless-stopped
 
   frontend:
-    build: ./frontend
-    ports:
-      - "3000:3000"
+    build:
+      context: ./frontend
+    container_name: tennisinaja-frontend
     depends_on:
-<<<<<<< HEAD
-      - booking_service
-    networks:
-      - app_network
-
-volumes:
-  mongo_data:
-
-networks:
-  app_network:
-    driver: bridge
-=======
       - user_service
       - court_service
       - booking_service
+    ports:
+      - "3000:3000"
+    networks:
+      - app-network
+    restart: unless-stopped
+
+networks:
+  app-network:
+    driver: bridge
+  user-network:
+    driver: bridge
+  court-network:
+    driver: bridge
+  booking-network:
+    driver: bridge
 
 volumes:
-  mongo_data:
->>>>>>> 28f03f80133b0d0ad90b22b8bd53cc17c66e20f4
+  mongodb_user_data:
+  mongodb_court_data:
+  mongodb_booking_data:

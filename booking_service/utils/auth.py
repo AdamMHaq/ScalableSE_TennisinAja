@@ -1,7 +1,8 @@
 from fastapi import HTTPException, Header
 from jose import jwt, JWTError
+import os
 
-SECRET_KEY = "your-secret-key"  # Use the same as user_service
+SECRET_KEY = os.getenv("SECRET_KEY", "supersecretkey")  # Use the same as user_service
 ALGORITHM = "HS256"
 
 def decode_access_token(token: str):

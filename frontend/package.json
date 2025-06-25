@@ -3,11 +3,7 @@
   "version": "1.0.0",
   "description": "Frontend for TennisinAja",
   "scripts": {
-<<<<<<< HEAD
     "start": "serve public"
-=======
-    "start": "npx serve public"
->>>>>>> 28f03f80133b0d0ad90b22b8bd53cc17c66e20f4
   },
   "dependencies": {}
 }
