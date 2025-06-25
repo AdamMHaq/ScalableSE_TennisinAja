@@ -48,24 +48,24 @@ TennisinAja/
 
 ## 🎯 Key Features
 
-### ** 🔐 Authentication & Authorization System **
+### 🔐 Authentication & Authorization System
 - JWT-based Authentication: Secure token-based login with role-based access control
 - User Registration & Management: Complete user lifecycle with email validation
 - Role-based Security: Admin vs Player permissions with protected endpoints
 - Session Persistence: Auto-login with token storage and validation
-### ** 🏟️ Court Management System **
+### 🏟️ Court Management System
 - Public Court Discovery: Browse available courts without authentication
 - Advanced Filtering: Search by surface type (hard/clay/grass), indoor/outdoor, price range
 - Admin Court Creation: Full CRUD operations for court administrators
 - Rich Court Data: Comprehensive court info including pricing, contact, Google Maps integration
 - Real-time Updates: Instant court availability across all users
-### ** 📅 Booking Management System **
+### 📅 Booking Management System
 - Smart Booking Engine: Prevents double-booking with time slot validation
 - Multi-duration Support: 1-3 hour booking slots with flexible scheduling
 - Booking History: Complete booking lifecycle tracking (pending → confirmed → cancelled)
 - Payment Status Tracking: Integrated payment status management (unpaid → paid → refunded)
 - Confirmation Codes: Unique booking identifiers for verification
-### 🛡️ ** Security & Reliability **
+### 🛡️ Security & Reliability
 - Password Encryption: Bcrypt hashing for secure password storage
 - CORS Configuration: Proper cross-origin resource sharing setup
 - Input Validation: Comprehensive request validation with Pydantic models
