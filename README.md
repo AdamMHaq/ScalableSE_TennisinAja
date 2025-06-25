@@ -65,7 +65,7 @@ TennisinAja/
 - Booking History: Complete booking lifecycle tracking (pending → confirmed → cancelled)
 - Payment Status Tracking: Integrated payment status management (unpaid → paid → refunded)
 - Confirmation Codes: Unique booking identifiers for verification
-### ** 🛡️ Security & Reliability **
+### 🛡️ ** Security & Reliability **
 - Password Encryption: Bcrypt hashing for secure password storage
 - CORS Configuration: Proper cross-origin resource sharing setup
 - Input Validation: Comprehensive request validation with Pydantic models
